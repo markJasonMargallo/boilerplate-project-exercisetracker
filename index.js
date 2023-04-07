@@ -58,8 +58,10 @@ const addUser = (username) => {
 const addExercise = (requestBody) => {
 
   const date = requestBody.date !== "" ? new Date(requestBody.date) : new Date();
+  const user = getUser(requestBody[':_id'])
   
   const exercise = {
+    username: user.username,
     description: requestBody.description,
     duration: Number(requestBody.duration),
     date: date.toDateString(),
