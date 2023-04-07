@@ -15,7 +15,7 @@ var exercises = [];
 
 const getUser = (id) => {
   var selectedUser;
-  
+
   users.forEach(user => {
     if (user._id === id) {
       console.log('user:')
@@ -56,11 +56,13 @@ const addUser = (username) => {
 }
 
 const addExercise = (requestBody) => {
+
+  const date = requestBody.date !== "" ? new Date(requestBody.date) : new Date();
   
   const exercise = {
     description: requestBody.description,
     duration: Number(requestBody.duration),
-    date: (new Date(requestBody.date)).toDateString(),
+    date: date.toDateString(),
     _id: requestBody[':_id']
   }
 
