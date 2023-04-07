@@ -20,32 +20,53 @@ const getUser = (id) => {
     if (user._id === id) {
       console.log('user:')
       console.log(user)
-      selectedUser =  user
+      selectedUser = user
     }
   });
 
   return selectedUser;
 }
 
-const getExerciseCount = () =>{
+const getExerciseCount = () => {
   return exercises.length;
 }
 
-const getLogs = (id) => {
-
+const getLogs = (id, from, to, limit) => {
   var userExercise = []
 
   exercises.forEach(exercise => {
-    if (exercise._id === id) {
-      userExercise.push({
-        description: exercise.description,
-        duration: exercise.duration,
-        date: exercise.date
-      })
+
+    const fromDate = new Date(from);
+    const toDate = new Date(to);
+    const date = new Date(exercise.date);
+    const listLimit = limit;
+
+    if (fromDate != null && toDate != null && limit != null){
+
+      if (exercise._id === id && date >= fromDate && date <= toDate && userExercise.length <= limit) {
+
+        userExercise.push({
+          description: exercise.description,
+          duration: exercise.duration,
+          date: exercise.date
+        })
+      }
+
+    }else{
+
+      if (exercise._id === id) {
+        userExercise.push({
+          description: exercise.description,
+          duration: exercise.duration,
+          date: exercise.date
+        })
+      }
+
     }
+
   });
 
-  return  userExercise;
+  return userExercise;
 }
 
 const addUser = (username) => {
@@ -59,7 +80,7 @@ const addExercise = (requestBody) => {
 
   const date = requestBody.date !== "" ? new Date(requestBody.date) : new Date();
   const user = getUser(requestBody[':_id'])
-  
+
   const exercise = {
     username: user.username,
     description: requestBody.description,
@@ -93,7 +114,7 @@ app.get('/api/users', (req, res) => {
 
 app.get('/api/users/:_id/logs', (req, res) => {
   const user = getUser(req.params._id)
-  const logs = getLogs(req.params._id)
+  const logs = getLogs(req.params._id, req.query.fromDate, req.query.toDate, req.query.limit)
 
   console.log(user)
   console.log(logs)
