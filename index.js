@@ -54,11 +54,23 @@ const getLogs = (id, from, to, limit) => {
 
 
 
-    if (fromDate != null && toDate != null && limit != null) {
+    if (fromDate != null && toDate != null) {
 
-      console.log(`${date} >= ${fromDate} = ${date >= fromDate}`)
+      if ((date >= fromDate && date <= toDate)) {
 
-      if ((date >= fromDate && date <= toDate) && userExercise.length < listLimit) {
+        if (exercise._id === id) {
+          userExercise.push({
+            description: exercise.description,
+            duration: exercise.duration,
+            date: exercise.date
+          })
+        }
+
+      }
+
+    }else if(limit != null){
+
+      if (userExercise.length < listLimit) {
 
         if (exercise._id === id) {
           userExercise.push({
