@@ -14,10 +14,16 @@ var users = [
 ];
 
 var exercises = [
+  { _id: "9a89812075419d1d9f92e7167e99e459", date: "Wed Apr 01 2023", duration: 60, description: "sit-ups" },
+  { _id: "9a89812075419d1d9f92e7167e99e459", date: "Wed Apr 02 2023", duration: 60, description: "pull-ups" },
+  { _id: "9a89812075419d1d9f92e7167e99e459", date: "Wed Apr 03 2023", duration: 60, description: "push-ups" },
+  { _id: "9a89812075419d1d9f92e7167e99e459", date: "Wed Apr 04 2023", duration: 60, description: "curl-ups" },
   { _id: "9a89812075419d1d9f92e7167e99e459", date: "Wed Apr 05 2023", duration: 60, description: "push-ups" },
   { _id: "9a89812075419d1d9f92e7167e99e459", date: "Wed Apr 06 2023", duration: 60, description: "curl-ups" },
   { _id: "9a89812075419d1d9f92e7167e99e459", date: "Wed Apr 07 2023", duration: 60, description: "sit-ups" },
-  { _id: "9a89812075419d1d9f92e7167e99e459", date: "Wed Apr 08 2023", duration: 60, description: "pull-ups" }
+  { _id: "9a89812075419d1d9f92e7167e99e459", date: "Wed Apr 08 2023", duration: 60, description: "pull-ups" },
+  { _id: "9a89812075419d1d9f92e7167e99e459", date: "Wed Apr 09 2023", duration: 60, description: "push-ups" },
+  { _id: "9a89812075419d1d9f92e7167e99e459", date: "Wed Apr 10 2023", duration: 60, description: "curl-ups" },
 ];
 
 const getUser = (id) => {
@@ -41,21 +47,27 @@ const getLogs = (id, from, to, limit) => {
 
   exercises.forEach(exercise => {
 
-
-
-    const fromDate = new Date(from);
-    const toDate = new Date(to);
-    const date = new Date(exercise.date);
+    const fromDate = new Date(from).setHours(0, 0, 0, 0);
+    const toDate = new Date(to).setHours(0, 0, 0, 0);
+    const date = new Date(exercise.date).setHours(0, 0, 0, 0);
     const listLimit = limit;
+
+
 
     if (fromDate != null && toDate != null && limit != null) {
 
-      if (exercise._id === id && date >= fromDate && date <= toDate && userExercise.length < listLimit) {
-        userExercise.push({
-          description: exercise.description,
-          duration: exercise.duration,
-          date: date.toDateString()
-        })
+      console.log(`${date} >= ${fromDate} = ${date >= fromDate}`)
+
+      if ((date >= fromDate && date <= toDate) && userExercise.length < listLimit) {
+
+        if (exercise._id === id) {
+          userExercise.push({
+            description: exercise.description,
+            duration: exercise.duration,
+            date: exercise.date
+          })
+        }
+
       }
 
     } else {
@@ -64,7 +76,7 @@ const getLogs = (id, from, to, limit) => {
         userExercise.push({
           description: exercise.description,
           duration: exercise.duration,
-          date: date.toDateString()
+          date: exercise.date
         })
       }
 
