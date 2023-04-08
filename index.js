@@ -43,47 +43,21 @@ const getExerciseCount = () => {
 }
 
 const getLogs = (id, from, to, limit) => {
-  var userExercise = []
+  var userExercises = exercises;
+  const fromDate = new Date(from).setHours(0, 0, 0, 0)
+  const toDate = new Date(to).setHours(0, 0, 0, 0)
 
-  exercises.forEach(exercise => {
+  if(fromDate && toDate){
 
-    const fromDate = new Date(from).setHours(0,0,0,0);
-    const toDate = new Date(to).setHours(0,0,0,0);
-    const date = new Date(exercise.date).setHours(0,0,0,0);
-    const listLimit = limit;
+    userExercises = exercises.filter(exercise =>  
+      new Date(exercise.date).setHours(0, 0, 0, 0) >= fromDate && new Date(exercise.date).setHours(0, 0, 0, 0) <= toDate)
+  }
 
+  if (limit && limit > 0) {
+    userExercises = userExercises.slice(0, limit)
+  }
 
-    if (fromDate != null && toDate != null && limit != null) {
-
-      console.log(`${date} >= ${fromDate} = ${date >= fromDate}`)
-
-      if ((date >= fromDate && date <= toDate) && userExercise.length < listLimit) {
-
-        if (exercise._id === id) {
-          userExercise.push({
-            description: exercise.description,
-            duration: exercise.duration,
-            date: exercise.date
-          })
-        }
-
-      }
-
-    } else {
-
-      if (exercise._id === id) {
-        userExercise.push({
-          description: exercise.description,
-          duration: exercise.duration,
-          date: exercise.date
-        })
-      }
-
-    }
-
-  });
-
-  return userExercise;
+  return userExercises;
 }
 
 const addUser = (username) => {
