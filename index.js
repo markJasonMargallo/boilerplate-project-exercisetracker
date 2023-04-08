@@ -115,9 +115,9 @@ app.get('/api/users/:_id/logs', (req, res) => {
   const logs = getLogs(req.params._id, req.query.fromDate, req.query.toDate, req.query.limit)
 
   res.json({
+    _id: user._id,
     username: user.username,
     count: getExerciseCount(),
-    _id: user._id,
     log: logs
   }
   );
