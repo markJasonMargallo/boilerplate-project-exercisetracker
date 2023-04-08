@@ -18,8 +18,6 @@ const getUser = (id) => {
 
   users.forEach(user => {
     if (user._id === id) {
-      console.log('user:')
-      console.log(user)
       selectedUser = user
     }
   });
@@ -76,13 +74,13 @@ const addUser = (username) => {
   return user;
 }
 
-const addExercise = (requestBody) => {
+const addExercise = (id, requestBody) => {
 
   const date = requestBody.date !== "" ? new Date(requestBody.date) : new Date();
-  const user = getUser(requestBody[':_id'])
+  const user = getUser(id)
 
   const exercise = {
-    _id: requestBody[':_id'],
+    _id: id,
     username: user.username,
     date: date.toDateString(),
     duration: Number(requestBody.duration),
@@ -116,8 +114,6 @@ app.get('/api/users/:_id/logs', (req, res) => {
   const user = getUser(req.params._id)
   const logs = getLogs(req.params._id, req.query.fromDate, req.query.toDate, req.query.limit)
 
-  console.log(user)
-  console.log(logs)
   res.json({
     username: user.username,
     count: getExerciseCount(),
@@ -129,13 +125,10 @@ app.get('/api/users/:_id/logs', (req, res) => {
 
 app.post('/api/users', (req, res) => {
   res.json(addUser(req.body.username));
-  // console.log(users);
 });
 
 app.post('/api/users/:_id/exercises', (req, res) => {
-  console.log(req.body)
-  res.json(addExercise(req.body));
-  // console.log(exercises);
+  res.json(addExercise(req.params._id, req.body));
 });
 
 
