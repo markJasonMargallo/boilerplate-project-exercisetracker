@@ -34,33 +34,43 @@ const getLogs = (id, from, to, limit) => {
 
   exercises.forEach(exercise => {
 
+    
+
     const fromDate = new Date(from);
     const toDate = new Date(to);
     const date = new Date(exercise.date);
     const listLimit = limit;
 
-    if (fromDate != null && toDate != null && limit != null){
-
-      if (exercise._id === id && date >= fromDate && date <= toDate) {
-
-        userExercise.push({
-          description: exercise.description,
-          duration: exercise.duration,
-          date: exercise.date
-        })
-      }
-
-    }else{
-
-      if (exercise._id === id) {
-        userExercise.push({
-          description: exercise.description,
-          duration: exercise.duration,
-          date: exercise.date
-        })
-      }
-
+    if (exercise._id === id) {
+      userExercise.push({
+        description: exercise.description,
+        duration: exercise.duration,
+        date: exercise.date
+      })
     }
+
+    // if (fromDate != null && toDate != null && limit != null){
+
+    //   if (exercise._id === id && date >= fromDate && date <= toDate) {
+
+    //     userExercise.push({
+    //       description: exercise.description,
+    //       duration: exercise.duration,
+    //       date: exercise.date
+    //     })
+    //   }
+
+    // }else{
+
+    //   if (exercise._id === id) {
+    //     userExercise.push({
+    //       description: exercise.description,
+    //       duration: exercise.duration,
+    //       date: exercise.date
+    //     })
+    //   }
+
+    // }
 
   });
 
