@@ -43,7 +43,7 @@ const getLogs = (id, from, to, limit) => {
 
     if (fromDate != null && toDate != null && limit != null){
 
-      if (exercise._id === id && date >= fromDate && date <= toDate && userExercise.length <= limit) {
+      if (exercise._id === id && date >= fromDate && date <= toDate) {
 
         userExercise.push({
           description: exercise.description,
@@ -82,11 +82,11 @@ const addExercise = (requestBody) => {
   const user = getUser(requestBody[':_id'])
 
   const exercise = {
+    _id: requestBody[':_id'],
     username: user.username,
-    description: requestBody.description,
-    duration: Number(requestBody.duration),
     date: date.toDateString(),
-    _id: requestBody[':_id']
+    duration: Number(requestBody.duration),
+    description: requestBody.description,
   }
 
   exercises.push(exercise);
