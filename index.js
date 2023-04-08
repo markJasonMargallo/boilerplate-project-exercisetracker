@@ -9,22 +9,26 @@ app.use(express.static('public'))
 app.use(bodyParser.urlencoded({ extended: false }));
 app.use(bodyParser.json());
 
-var users = [
-  { username: "mark", _id: "9a89812075419d1d9f92e7167e99e459" }
-];
+// var users = [
+//   { username: "mark", _id: "9a89812075419d1d9f92e7167e99e459" }
+// ];
 
-var exercises = [
-  { _id: "9a89812075419d1d9f92e7167e99e459", date: "Wed Apr 01 2023", duration: 60, description: "sit-ups" },
-  { _id: "9a89812075419d1d9f92e7167e99e459", date: "Wed Apr 02 2023", duration: 60, description: "pull-ups" },
-  { _id: "9a89812075419d1d9f92e7167e99e459", date: "Wed Apr 03 2023", duration: 60, description: "push-ups" },
-  { _id: "9a89812075419d1d9f92e7167e99e459", date: "Wed Apr 04 2023", duration: 60, description: "curl-ups" },
-  { _id: "9a89812075419d1d9f92e7167e99e459", date: "Wed Apr 05 2023", duration: 60, description: "push-ups" },
-  { _id: "9a89812075419d1d9f92e7167e99e459", date: "Wed Apr 06 2023", duration: 60, description: "curl-ups" },
-  { _id: "9a89812075419d1d9f92e7167e99e459", date: "Wed Apr 07 2023", duration: 60, description: "sit-ups" },
-  { _id: "9a89812075419d1d9f92e7167e99e459", date: "Wed Apr 08 2023", duration: 60, description: "pull-ups" },
-  { _id: "9a89812075419d1d9f92e7167e99e459", date: "Wed Apr 09 2023", duration: 60, description: "push-ups" },
-  { _id: "9a89812075419d1d9f92e7167e99e459", date: "Wed Apr 10 2023", duration: 60, description: "curl-ups" },
-];
+// var exercises = [
+//   { _id: "9a89812075419d1d9f92e7167e99e459", date: "Wed Apr 01 2023", duration: 60, description: "sit-ups" },
+//   { _id: "9a89812075419d1d9f92e7167e99e459", date: "Wed Apr 02 2023", duration: 60, description: "pull-ups" },
+//   { _id: "9a89812075419d1d9f92e7167e99e459", date: "Wed Apr 03 2023", duration: 60, description: "push-ups" },
+//   { _id: "9a89812075419d1d9f92e7167e99e459", date: "Wed Apr 04 2023", duration: 60, description: "curl-ups" },
+//   { _id: "9a89812075419d1d9f92e7167e99e459", date: "Wed Apr 05 2023", duration: 60, description: "push-ups" },
+//   { _id: "9a89812075419d1d9f92e7167e99e459", date: "Wed Apr 06 2023", duration: 60, description: "curl-ups" },
+//   { _id: "9a89812075419d1d9f92e7167e99e459", date: "Wed Apr 07 2023", duration: 60, description: "sit-ups" },
+//   { _id: "9a89812075419d1d9f92e7167e99e459", date: "Wed Apr 08 2023", duration: 60, description: "pull-ups" },
+//   { _id: "9a89812075419d1d9f92e7167e99e459", date: "Wed Apr 09 2023", duration: 60, description: "push-ups" },
+//   { _id: "9a89812075419d1d9f92e7167e99e459", date: "Wed Apr 10 2023", duration: 60, description: "curl-ups" },
+// ];
+
+var users = [];
+
+var exercises = [];
 
 const getUser = (id) => {
   var selectedUser;
