@@ -54,7 +54,7 @@ const getLogs = (id, from, to, limit) => {
         userExercise.push({
           description: exercise.description,
           duration: exercise.duration,
-          date: exercise.date
+          date: date.toDateString()
         })
       }
 
@@ -64,7 +64,7 @@ const getLogs = (id, from, to, limit) => {
         userExercise.push({
           description: exercise.description,
           duration: exercise.duration,
-          date: exercise.date
+          date: date.toDateString()
         })
       }
 
