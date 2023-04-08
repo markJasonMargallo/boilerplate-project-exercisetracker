@@ -54,7 +54,7 @@ const getLogs = (id, from, to, limit) => {
   }
 
   if (limit && limit > 0) {
-    userExercises = userExercises.slice(0, limit)
+    userExercises = userExercises.splice(0, limit)
   }
 
   return userExercises;
