@@ -9,9 +9,16 @@ app.use(express.static('public'))
 app.use(bodyParser.urlencoded({ extended: false }));
 app.use(bodyParser.json());
 
-var users = [];
+var users = [
+  { username: "mark", _id: "9a89812075419d1d9f92e7167e99e459" }
+];
 
-var exercises = [];
+var exercises = [
+  { _id: "9a89812075419d1d9f92e7167e99e459", date: "Wed Apr 05 2023", duration: 60, description: "push-ups" },
+  { _id: "9a89812075419d1d9f92e7167e99e459", date: "Wed Apr 06 2023", duration: 60, description: "curl-ups" },
+  { _id: "9a89812075419d1d9f92e7167e99e459", date: "Wed Apr 07 2023", duration: 60, description: "sit-ups" },
+  { _id: "9a89812075419d1d9f92e7167e99e459", date: "Wed Apr 08 2023", duration: 60, description: "pull-ups" }
+];
 
 const getUser = (id) => {
   var selectedUser;
@@ -34,43 +41,34 @@ const getLogs = (id, from, to, limit) => {
 
   exercises.forEach(exercise => {
 
-    
+
 
     const fromDate = new Date(from);
     const toDate = new Date(to);
     const date = new Date(exercise.date);
     const listLimit = limit;
 
-    if (exercise._id === id) {
-      userExercise.push({
-        description: exercise.description,
-        duration: exercise.duration,
-        date: exercise.date
-      })
+    if (fromDate != null && toDate != null && limit != null) {
+
+      if (exercise._id === id && date >= fromDate && date <= toDate && userExercise.length < listLimit) {
+        userExercise.push({
+          description: exercise.description,
+          duration: exercise.duration,
+          date: exercise.date
+        })
+      }
+
+    } else {
+
+      if (exercise._id === id) {
+        userExercise.push({
+          description: exercise.description,
+          duration: exercise.duration,
+          date: exercise.date
+        })
+      }
+
     }
-
-    // if (fromDate != null && toDate != null && limit != null){
-
-    //   if (exercise._id === id && date >= fromDate && date <= toDate) {
-
-    //     userExercise.push({
-    //       description: exercise.description,
-    //       duration: exercise.duration,
-    //       date: exercise.date
-    //     })
-    //   }
-
-    // }else{
-
-    //   if (exercise._id === id) {
-    //     userExercise.push({
-    //       description: exercise.description,
-    //       duration: exercise.duration,
-    //       date: exercise.date
-    //     })
-    //   }
-
-    // }
 
   });
 
@@ -87,7 +85,7 @@ const addUser = (username) => {
 const addExercise = (id, requestBody) => {
 
   const date = requestBody.date !== "" ? new Date(requestBody.date) : new Date();
-  const user = getUser(id)
+  const user = getUser(id);
 
   const exercise = {
     _id: id,
@@ -98,7 +96,7 @@ const addExercise = (id, requestBody) => {
   }
 
   exercises.push(exercise);
-  return exercise
+  return exercise;
 }
 
 const userExist = (id) => {
@@ -122,7 +120,7 @@ app.get('/api/users', (req, res) => {
 
 app.get('/api/users/:_id/logs', (req, res) => {
   const user = getUser(req.params._id)
-  const logs = getLogs(req.params._id, req.query.fromDate, req.query.toDate, req.query.limit)
+  const logs = getLogs(req.params._id, req.query.from, req.query.to, req.query.limit)
 
   res.json({
     _id: user._id,
