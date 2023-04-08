@@ -47,30 +47,17 @@ const getLogs = (id, from, to, limit) => {
 
   exercises.forEach(exercise => {
 
-    const fromDate = new Date(from).setHours(0, 0, 0, 0);
-    const toDate = new Date(to).setHours(0, 0, 0, 0);
-    const date = new Date(exercise.date).setHours(0, 0, 0, 0);
+    const fromDate = new Date(from).setHours(0,0,0,0);
+    const toDate = new Date(to).setHours(0,0,0,0);
+    const date = new Date(exercise.date).setHours(0,0,0,0);
     const listLimit = limit;
 
 
+    if (fromDate != null && toDate != null && limit != null) {
 
-    if (fromDate != null && toDate != null) {
+      console.log(`${date} >= ${fromDate} = ${date >= fromDate}`)
 
-      if(limit != null){
-
-        if (userExercise.length < listLimit) {
-  
-          if (exercise._id === id) {
-            userExercise.push({
-              description: exercise.description,
-              duration: exercise.duration,
-              date: exercise.date
-            })
-          }
-  
-        }
-  
-      }else if ((date >= fromDate && date <= toDate)) {
+      if ((date >= fromDate && date <= toDate) && userExercise.length < listLimit) {
 
         if (exercise._id === id) {
           userExercise.push({
